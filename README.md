@@ -8,8 +8,9 @@ Blockchain is a groundbreaking technology that revolutionizes how data is stored
 - [Project Overview](#project-overview)
   - [Block](#1-block)
   - [Blockchain](#2-blockchain)
+  - [Proof of work](#3-proof-of-work)
 - [Objectives](#objectives)
-- [Usage](#usage)
+- [Example](#example)
 - [License](#license)
 
 ## Introduction
@@ -34,6 +35,12 @@ The blockchain itself is an ordered list of blocks:
 - **Structure**: A sequential chain where each block is linked to its predecessor.
 - **Functionality**: Allows adding new blocks, ensuring the integrity of the entire chain through cryptographic hashing and consensus mechanisms.
 
+### 3. Proof of Work
+
+Proof of work is a mechanism used by blockchain networks to validate transactions and add new blocks to the chain. It requires miners (network nodes) to solve complex computational puzzles by repeatedly guessing values until they find a solution that meets specific criteria. The first miner to solve the puzzle and broadcast the valid solution to the network is rewarded with cryptocurrency. This process ensures the security and integrity of the blockchain by making it computationally expensive to tamper with the ledger. 
+
+- **Time to solve**: Increasing the number of bits of the target exponentially increases how long it takes to solve the puzzle. I.e. Setting the target bits to 16 takes a few seconds, but, setting it to 24 takes a few minutes.
+
 ## Objectives
 
 This project serves to:
@@ -41,7 +48,7 @@ This project serves to:
 - **Implement Cryptographic Principles**: Utilize hashing algorithms for data security.
 - **Prototype a Simplified Cryptocurrency**: Develop a basic blockchain model for educational purposes.
 
-## Usage
+## Example
 
 ```
 
