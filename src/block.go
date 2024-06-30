@@ -5,6 +5,7 @@ import (
 	"crypto/sha256"
 	"strconv"
 	"time"
+	"encoding/gob"
 )
 
 // Blocks store the transaction and information associated with it
@@ -35,4 +36,30 @@ func NewBlock(data string, prevBlockHash []byte) *Block {
 	block.Nonce = nonce
 
 	return block
+}
+
+// serializes the block struct into byte array to use for boltdb
+func (b *Block) Serialize() ([]byte) {
+
+	var result bytes.Buffer
+	encoder := gob.NewEncoder(&result)
+	err := encoder.Encode(b)
+	if err != nil {
+		log.Panic(err)
+	}
+
+	return result.Bytes()
+}
+
+//deserializes the byte array into block struct
+func Deserialize(d []byte) (*Block) {
+	var block Block
+
+	decoder := gob.NewDecoder(bytes.NewReader(d))
+	err := decoder.Decode(&block)
+	if err != nil {
+		log.Panic(err)
+	}
+
+	return &block
 }
