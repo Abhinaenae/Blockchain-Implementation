@@ -17,6 +17,11 @@ Blockchain is a groundbreaking technology that revolutionizes how data is stored
 
 Blockchain, at its core, is a distributed database where data is stored in blocks that are linked together in a chronological order. Each block contains valuable information, such as transactions in cryptocurrencies, along with technical details like timestamps and references to previous blocks.
 
+#### Tools used:
+- Golang
+- Boltdb
+- 
+
 ## Project Overview
 
 In this project, we focus on two primary components of a blockchain:
@@ -34,6 +39,7 @@ Blocks in a blockchain store essential data and technical information:
 The blockchain itself is an ordered list of blocks:
 - **Structure**: A sequential chain where each block is linked to its predecessor.
 - **Functionality**: Allows adding new blocks, ensuring the integrity of the entire chain through cryptographic hashing and consensus mechanisms.
+- **Storage**: The chain is persistently stored in a database, where each block and its hash are key-value pairs.
 
 ### 3. Proof of Work
 
@@ -53,18 +59,44 @@ This project serves to:
 ```
 
 $ go build -o blockchain.exe
-$ ./blockchain.exe
-Prev. hash: 
+$ ./blockchain.exe printchain
+No existing blockchain found. Creating a new one...
+Mining the block containing "Genesis Block"
+0000e4cb28adb98c0d32ec5cc3fcea495bf9f635664f180c497d07336779649c
+
+Prev. hash:
 Data: Genesis Block
-Hash: 78f3299b2c9d92db10b9c6ea68d9a09a821210994cd9d4d818acb9a182e0a8f5
+Hash: 0000e4cb28adb98c0d32ec5cc3fcea495bf9f635664f180c497d07336779649c
+PoW: true
 
-Prev. hash: 78f3299b2c9d92db10b9c6ea68d9a09a821210994cd9d4d818acb9a182e0a8f5
+$ ./blockchain.exe addblock -data "Send 1 BTC to Abhi"
+Mining the block containing "Send 1 BTC to Abhi"
+000085e7c4ce313a5a4d472bbb92000c341e39a2276f0fb32be1b04793add050
+
+Success!
+
+$ ./blockchain.exe addblock -data "Pay 0.5 BTC for pizza"
+Mining the block containing "Pay 0.5 BTC for pizza"
+0000205381a1a5fe0447997d46ba01e3668d5bbd7e1c13dc8a99ef3694bafb31
+
+Success!
+
+$ ./blockchain.exe printchain
+Prev. hash: 000085e7c4ce313a5a4d472bbb92000c341e39a2276f0fb32be1b04793add050
+Data: Pay 0.5 BTC for pizza
+Hash: 0000205381a1a5fe0447997d46ba01e3668d5bbd7e1c13dc8a99ef3694bafb31
+PoW: true
+
+Prev. hash: 0000e4cb28adb98c0d32ec5cc3fcea495bf9f635664f180c497d07336779649c
 Data: Send 1 BTC to Abhi
-Hash: 24dca38c5a99da479a0208b9b72800c9c0b101ec7eb1c4eab09e86a91a24bb7b
+Hash: 000085e7c4ce313a5a4d472bbb92000c341e39a2276f0fb32be1b04793add050
+PoW: true
 
-Prev. hash: 24dca38c5a99da479a0208b9b72800c9c0b101ec7eb1c4eab09e86a91a24bb7b
-Data: Send 2 BTC to Abhi
-Hash: ad57897468481391f982c01b853f1c598025975c49ae7fcea098587d70daf43c
+Prev. hash:
+Data: Genesis Block
+Hash: 0000e4cb28adb98c0d32ec5cc3fcea495bf9f635664f180c497d07336779649c
+PoW: true
+
 ```
 ## License
 

@@ -3,9 +3,10 @@ package main
 import (
 	"bytes"
 	"crypto/sha256"
+	"encoding/gob"
+	"log"
 	"strconv"
 	"time"
-	"encoding/gob"
 )
 
 // Blocks store the transaction and information associated with it
@@ -15,7 +16,7 @@ type Block struct {
 	Data          []byte
 	PrevBlockHash []byte
 	Hash          []byte
-	Nonce int
+	Nonce         int
 }
 
 //takes block fields, concatenate them, and calculate a SHA-256 hash on the concatenated combination
@@ -38,8 +39,12 @@ func NewBlock(data string, prevBlockHash []byte) *Block {
 	return block
 }
 
+func NewGenesisBlock() *Block {
+	return NewBlock("Genesis Block", []byte{})
+}
+
 // serializes the block struct into byte array to use for boltdb
-func (b *Block) Serialize() ([]byte) {
+func (b *Block) Serialize() []byte {
 
 	var result bytes.Buffer
 	encoder := gob.NewEncoder(&result)
@@ -51,8 +56,8 @@ func (b *Block) Serialize() ([]byte) {
 	return result.Bytes()
 }
 
-//deserializes the byte array into block struct
-func Deserialize(d []byte) (*Block) {
+// deserializes the byte array into block struct
+func Deserialize(d []byte) *Block {
 	var block Block
 
 	decoder := gob.NewDecoder(bytes.NewReader(d))
