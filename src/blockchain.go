@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
-	"github/com/boltdb/bolt"
+	"github.com/boltdb/bolt"
 )
 
 const dbFile = "blockchain.db"
